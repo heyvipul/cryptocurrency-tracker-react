@@ -1,8 +1,12 @@
 import { AppBar, Container, MenuItem, Select, Toolbar, Typography, createTheme } from '@mui/material';
 import { makeStyles, ThemeProvider } from "@mui/styles";
 import { useNavigate } from 'react-router-dom';
+import { Crypto } from '../Context/CryptoContext';
+import { useContext } from 'react';
 
 const Header = () => {
+
+  const {currency,setCurrency} = useContext(Crypto);
 
   const useStyles = makeStyles(() => ({
     title: {
@@ -32,7 +36,10 @@ const Header = () => {
         <Container>
           <Toolbar>
             <Typography variant='' onClick={() => { navigate("/") }} className={classess.title}>Crypto Explorer</Typography>
-            <Select variant='outlined' style={{
+            <Select variant='outlined' 
+              value={currency}
+              onChange={(e)=>setCurrency(e.target.value)}
+              style={{
               width: 100,
               height: 40,
               marginRight: 15,
