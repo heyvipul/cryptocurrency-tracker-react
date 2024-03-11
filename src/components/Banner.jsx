@@ -1,5 +1,6 @@
 import { Container, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import Carousel from "./Carousel";
 // import banner from "../../public/banner2.jpg"
 
 const useStyles = makeStyles(()=>({
@@ -46,6 +47,7 @@ const Banner = () => {
                     Get all the Info regarding your favourite crypto currency!
                 </Typography>
             </div>
+            <Carousel/>
         </Container>
     </div>
   )
