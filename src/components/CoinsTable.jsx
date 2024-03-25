@@ -5,6 +5,7 @@ import { Crypto } from '../Context/CryptoContext';
 import { makeStyles, ThemeProvider } from "@mui/styles";
 import { Container, LinearProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, createTheme } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { numberWithCommas } from './Carousel';
 
 
 
@@ -47,13 +48,20 @@ const CoinsTable = () => {
   }
 
   const useStyles = makeStyles(() =>({
-    
+    row : {
+      backgroundColor : "#16171a",
+      cursor : "pointer",
+      "&:hover" : {
+        backgroundColor : "#131111",
+      },
+      fontFamily : "Montserrat",
+    }
   }))
 
   const classes = useStyles();
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darkTheme} >
       <Container style={{ textAlign: "center",backgroundColor:"rgb(20,22,26)"}}>
         <Typography
           variant='h4'
@@ -104,6 +112,21 @@ const CoinsTable = () => {
                               <span style={{textTransform:"uppercase",fontSize:"22",color :"white"}}>{row.symbol}</span>
                               <span style={{color :"darkgrey"}}>{row.name}</span>
                             </div>
+                            </TableCell>
+                            <TableCell style={{color:"white"}} align='right'>
+                              {symbol}{" "}
+                              {numberWithCommas(row.current_price.toFixed(2))}
+                            </TableCell>
+                            <TableCell align='right'
+                            style={{color : profit >0 ? "rgb(14,203,129)" : "red",fontWeight:500}}>
+                              {profit && "+"}
+                              {row.price_change_percentage_24h.toFixed(2)}%
+                            </TableCell>
+                            <TableCell 
+                            style={{color:"white"}}
+                            align='right'>
+                              {symbol}{" "}
+                              {numberWithCommas(row.market_cap.toString().slice(0,-6))}M
                             </TableCell>
                           </TableRow>
                         )

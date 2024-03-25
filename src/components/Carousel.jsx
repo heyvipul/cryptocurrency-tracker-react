@@ -24,16 +24,16 @@ const useStyles = makeStyles(()=>({
     }
 }))
 
+export function numberWithCommas(x){
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+}
+
 
 const Carousel = () => {
     
     const classes = useStyles();
     const [trending,setTrending] = useState(array);
     const {currency,symbol} = useContext(Crypto)
-
-    function numberWithCommas(x){
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
-    }
     
     const fetchTrendingCoins = async () =>{
         try {
