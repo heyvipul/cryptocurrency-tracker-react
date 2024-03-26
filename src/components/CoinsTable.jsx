@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CoinList } from '../config/api';
 import { Crypto } from '../Context/CryptoContext';
 import { makeStyles, ThemeProvider } from "@mui/styles";
-import { Container, LinearProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, createTheme } from '@mui/material';
+import { Container, LinearProgress, Pagination, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, createTheme } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { numberWithCommas } from './Carousel';
 
@@ -15,6 +15,7 @@ const CoinsTable = () => {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search,setSearch] = useState("")
+  const [page,setPage] = useState(1)
   const navigate = useNavigate();
   const { currency, symbol } = useContext(Crypto)
 
@@ -55,6 +56,11 @@ const CoinsTable = () => {
         backgroundColor : "#131111",
       },
       fontFamily : "Montserrat",
+    },
+    pagination : {
+      "& .MuiPaginationItem-root" : {
+        color : "gold"
+      }
     }
   }))
 
@@ -93,7 +99,7 @@ const CoinsTable = () => {
                   </TableHead>
 
                   <TableBody>
-                      {handleSearch().map((row) => {
+                      {handleSearch().slice((page -1)*10,(page-1)*10+10).map((row) => {
                         const profit = row.price_change_percentage_24h > 0;
                         return (
                           <TableRow
@@ -136,7 +142,20 @@ const CoinsTable = () => {
               )
             }
           </TableContainer>
+          <Pagination
+            style={{padding : 20,
+            width : "100%",
+            display:"flex",
+            justifyContent:"center"}}
+            classes={{ul:classes.pagination}}
+            count={(handleSearch()?.length/10).toFixed(0)}
+            onChange={(_,value) =>{
+              setPage(value);
+              window.scroll(0,450);
+            }}
+          />
 
+          
       </Container>
     </ThemeProvider>
   )
