@@ -1,12 +1,11 @@
-import { makeStyles } from "@mui/styles";
 import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Crypto } from "../Context/CryptoContext";
 import axios from "axios";
 import { SingleCoin } from "../config/api";
 import CoinInfo from "../components/CoinInfo";
-import { Typography } from "@mui/material";
-// import parse from 'html-react-parser';
+import { LinearProgress, Typography } from "@mui/material";
+import { numberWithCommas } from "../components/Carousel";
 
 const Coinpage = () => {
 
@@ -20,43 +19,25 @@ const Coinpage = () => {
     setCoin(data);
   }
 
-  // console.log(coin.description.en);
+  console.log(coin);
 
   useEffect(() => {
     fetchCoin();
   }, [])
 
+  if(!coin) return <LinearProgress style={{backgroundColor:"gold"}}/>
 
 
-  const useStyles = makeStyles(() => ({
-    container: {
-      display: "flex",
-      // [theme.breakpoints.down("md")]: {
-      //   flexDirection: "column",
-      //   alignItems: "center",
-      // },
-    },
-    sidebar: {
-      width: "30%",
-      // [theme.breakpoints.down("md")]: {
-      //   width: "100%",
-      // },
+
+  return (
+    <div style={{display:"flex"}}>
+      {/* sidebar */}
+      <div style={{width: "30%",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       marginTop: 25,
-      borderRight: "2px solid grey",
-    },
-
-  }));
-
-  const classes = useStyles();
-
-
-  return (
-    <div className={classes.container}>
-      {/* sidebar */}
-      <div className={classes.sidebar}>
+      borderRight: "2px solid grey",}}>
         <img src={coin?.image.large} alt={coin?.name}
           height="200"
           style={{ marginBottom: 20 }}
@@ -65,10 +46,46 @@ const Coinpage = () => {
           style={{ fontWeight: "bold", marginBottom: 20, fontFamily: "Montserrat" }}>
           {coin?.name}
         </Typography>
+        <div style={{alignSelf:"start",padding:25,paddingTop:10,width:"100%"}}>
+          <span style={{display:"flex"}}>
+          <Typography variant="h5"
+          style={{ fontWeight: "bold", marginBottom: 20, fontFamily: "Montserrat" }}>
+            Rank:
+          </Typography>
+          &nbsp; &nbsp;
+          <Typography variant="h5"
+          style={{fontFamily:"Montserrat"}}>
+            {coin?.market_cap_rank}
+          </Typography>
+          </span>
+          <span style={{display:"flex"}}>
+          <Typography variant="h5"
+          style={{ fontWeight: "bold", marginBottom: 20, fontFamily: "Montserrat" }}>
+            Current Price:
+          </Typography>
+          &nbsp; &nbsp;
+          <Typography variant="h5"
+          style={{fontFamily:"Montserrat"}}>
+            {symbol}{" "}
+            {numberWithCommas(coin?.market_data.current_price[currency.toLowerCase()])}
+          </Typography>
+          </span>
+          <span style={{display:"flex"}}>
+          <Typography variant="h5"
+          style={{ fontWeight: "bold", marginBottom: 20, fontFamily: "Montserrat" }}>
+            Market Cap:{" "}
+          </Typography>
+          &nbsp; &nbsp;
+          <Typography variant="h5"
+          style={{fontFamily:"Montserrat"}}>
+            {symbol}{" "}
+            {
+              numberWithCommas(coin?.market_data.market_cap[currency.toLowerCase()].toString().slice(0,-6))
+            }
+          </Typography>
+          </span>
+        </div>
 
-        {/* <Typography variant="subtitle1">
-          {parse(coin?.description.en.split('\n').slice(0, 3).join('\n'))}.
-        </Typography> */}
 
       </div>
 

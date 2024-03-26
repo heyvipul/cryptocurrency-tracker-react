@@ -3,23 +3,13 @@ import {BrowserRouter, Route, Routes} from "react-router-dom"
 import Header from './components/Header'
 import Homepage from './Pages/Homepage'
 import Coinpage from './Pages/Coinpage'
-import { makeStyles } from "@mui/styles";
 
 function App() {
 
-  const useStyles = makeStyles(()=>({
-     App : {
-      background : "#14161a",
-      color : "white",
-      height : "100vh"
-     }
-  }))
-  
-  const classess = useStyles();
 
   return (
     <BrowserRouter>
-      <div className={classess.App}>
+      <div style={{background :"#14161a",color:"white",height:"100vh"}}>
         <Header/>
         <Routes>
           <Route exact path='/' element={<Homepage/>}/>
