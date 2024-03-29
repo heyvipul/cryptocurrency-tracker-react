@@ -6,6 +6,7 @@ import { SingleCoin } from "../config/api";
 import CoinInfo from "../components/CoinInfo";
 import { LinearProgress, Typography } from "@mui/material";
 import { numberWithCommas } from "../components/Carousel";
+import CoinsDetails from "../components/CoinDetails";
 
 const Coinpage = () => {
 
@@ -92,6 +93,7 @@ const Coinpage = () => {
 
       {/* chart */}
       <CoinInfo coin={coin} />
+      {/* <CoinsDetails coin={coin} /> */}
     </div>
   )
 }

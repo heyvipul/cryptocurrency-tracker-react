@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { numberWithCommas } from './Carousel';
 
 
-
 const CoinsTable = () => {
 
 
@@ -144,19 +143,15 @@ const CoinsTable = () => {
           }
         </TableContainer>
         <Pagination
-          style={{
-            padding: 20,
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            color : "gold",
-          }}
+          className="pagination-white-text"
           count={(handleSearch()?.length / 10).toFixed(0)}
           onChange={(_, value) => {
             setPage(value);
             window.scroll(0, 450);
           }}
         />
+        {/* <Pagination style={{color :"gold",backgroundColor : "white"}}
+        count={10} /> */}
 
 
       </Container>

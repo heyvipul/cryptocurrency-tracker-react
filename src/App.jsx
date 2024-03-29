@@ -9,7 +9,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div style={{background :"#14161a",color:"white",height:"100vh"}}>
+      <div style={{background :"#14161a",color:"white"}}>
         <Header/>
         <Routes>
           <Route exact path='/' element={<Homepage/>}/>
