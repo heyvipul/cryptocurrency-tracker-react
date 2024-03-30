@@ -1,12 +1,12 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CoinList } from '../config/api';
 import { Crypto } from '../Context/CryptoContext';
 // import { ThemeProvider } from "@mui/styles";
 import { Container, LinearProgress, Pagination, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, ThemeProvider, Typography, createTheme } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { numberWithCommas } from './Carousel';
-
+import { allcoinsArray } from '../config/allcoins';
 
 const CoinsTable = () => {
 
@@ -21,10 +21,15 @@ const CoinsTable = () => {
 
 
   const fetchCoins = async () => {
-    setLoading(true)
-    const { data } = await axios.get(CoinList(currency))
-    setCoins(data)
-    setLoading(false)
+    try {
+      setLoading(true)
+      const { data } = await axios.get(CoinList(currency))
+      setCoins(data)
+      setLoading(false)
+    } catch (error) {
+      setCoins(allcoinsArray)
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -47,15 +52,6 @@ const CoinsTable = () => {
     )
   }
 
-  // const useStyles = makeStyles(() => ({
-  //   pagination: {
-  //     "& .MuiPaginationItem-root": {
-  //       color: "gold"
-  //     }
-  //   }
-  // }))
-
-  // const classes = useStyles();
 
   return (
     <ThemeProvider theme={darkTheme} >
