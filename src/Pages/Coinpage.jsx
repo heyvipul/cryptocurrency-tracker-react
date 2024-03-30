@@ -93,6 +93,7 @@ const Coinpage = () => {
 
       {/* chart */}
       <CoinInfo coin={coin} />
+      {/* <CoinsDetails coin={coin} /> */}
     </div>
   )
 }
